@@ -2,22 +2,24 @@ package dev.majimo.rpggame.states;
 
 import java.awt.Graphics;
 
-import dev.majimo.rpggame.gfx.Assets;
+import dev.majimo.rpggame.entities.creatures.Player;
 
 public class GameState extends State {
+	
+	private Player player;
 
 	public GameState() {
-		
+		player = new Player(100, 100);		
 	}
 	
 	@Override
 	public void update() {
-		
+		player.update();
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.ground, 0, 0, null);
+		player.render(g);
 	}
 	
 }

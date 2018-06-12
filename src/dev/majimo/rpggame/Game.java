@@ -6,6 +6,7 @@ import java.awt.image.BufferStrategy;
 import dev.majimo.rpggame.display.Display;
 import dev.majimo.rpggame.gfx.Assets;
 import dev.majimo.rpggame.states.GameState;
+import dev.majimo.rpggame.states.MenuState;
 import dev.majimo.rpggame.states.State;
 
 public class Game implements Runnable {
@@ -16,8 +17,9 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	
-	//States
+	// States
 	private State gameState;
+	private State menuState;
 	
 	private boolean running = false;
 	public String title;
@@ -70,6 +72,7 @@ public class Game implements Runnable {
 		Assets.init();
 		
 		gameState = new GameState();
+		menuState = new MenuState();
 		State.setState(gameState);
 	}
 	
