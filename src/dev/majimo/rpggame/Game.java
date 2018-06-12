@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import dev.majimo.rpggame.display.Display;
 import dev.majimo.rpggame.gfx.Assets;
+import dev.majimo.rpggame.input.KeyManager;
 import dev.majimo.rpggame.states.GameState;
 import dev.majimo.rpggame.states.MenuState;
 import dev.majimo.rpggame.states.State;
@@ -21,14 +22,21 @@ public class Game implements Runnable {
 	private State gameState;
 	private State menuState;
 	
+	private KeyManager keyManager;
+	
 	private boolean running = false;
 	public String title;
 	public int width, height;
+	
+	public KeyManager getKeyManager() {
+		return keyManager;
+	}
 	
 	public Game(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		keyManager = new KeyManager();
 	}
 
 	@Override
@@ -69,14 +77,17 @@ public class Game implements Runnable {
 	
 	private void init() {
 		display = new Display(title, width, height);
+		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
 		
-		gameState = new GameState();
-		menuState = new MenuState();
+		gameState = new GameState(this);
+		menuState = new MenuState(this);
 		State.setState(gameState);
 	}
 	
 	private void update() {
+		keyManager.update();
+		
 		if (State.getState() != null)
 			State.getState().update();
 	}
