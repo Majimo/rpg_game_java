@@ -5,6 +5,8 @@ import java.awt.image.BufferStrategy;
 
 import dev.majimo.rpggame.display.Display;
 import dev.majimo.rpggame.gfx.Assets;
+import dev.majimo.rpggame.states.GameState;
+import dev.majimo.rpggame.states.State;
 
 public class Game implements Runnable {
 	
@@ -13,6 +15,9 @@ public class Game implements Runnable {
 	
 	private BufferStrategy bs;
 	private Graphics g;
+	
+	//States
+	private State gameState;
 	
 	private boolean running = false;
 	public String title;
@@ -48,6 +53,8 @@ public class Game implements Runnable {
 				ticks++;
 				delta--;
 			}
+			
+			// Check if fps is good or not
 			if (timer >= 1000000000) {
 				System.out.println("Ticks and Frame : " + ticks);
 				ticks = 0;
@@ -61,12 +68,14 @@ public class Game implements Runnable {
 	private void init() {
 		display = new Display(title, width, height);
 		Assets.init();
+		
+		gameState = new GameState();
+		State.setState(gameState);
 	}
 	
-	int x = 0;
-	
 	private void update() {
-		x++;
+		if (State.getState() != null)
+			State.getState().update();
 	}
 	
 	private void render() {
@@ -81,10 +90,8 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, width, height);
 		
 		// Drawing stuff
-		
-		// Draw Player
-		g.drawImage(Assets.player, x, 10, null);
-		
+		if (State.getState() != null)
+			State.getState().render(g);
 		// End drawing
 			
 		bs.show();
