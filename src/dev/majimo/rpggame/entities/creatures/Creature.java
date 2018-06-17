@@ -1,11 +1,12 @@
 package dev.majimo.rpggame.entities.creatures;
 
+import dev.majimo.rpggame.Game;
 import dev.majimo.rpggame.entities.Entity;
 
 public abstract class Creature extends Entity {
 	
 	public static final int DEFAULT_HEALTH = 10;
-	public static final float DEFAULT_SPEED = 3.0f;
+	public static final float DEFAULT_SPEED = 4.5f;
 	public static final int DEFAULT_CREATURE_WIDTH = 128;
 	public static final int DEFAULT_CREATURE_HEIGHT = 128;
 	
@@ -13,8 +14,8 @@ public abstract class Creature extends Entity {
 	protected float speed;
 	protected float xMove, yMove;
 
-	public Creature(float x, float y, int width, int height) {
-		super(x, y, width, height);
+	public Creature(Game game, float x, float y, int width, int height) {
+		super(game, x, y, width, height);
 		health = DEFAULT_HEALTH;
 		speed = DEFAULT_SPEED;
 		xMove = 0;

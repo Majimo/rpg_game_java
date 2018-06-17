@@ -4,6 +4,9 @@ import java.awt.Graphics;
 
 import dev.majimo.rpggame.Game;
 import dev.majimo.rpggame.entities.creatures.Player;
+import dev.majimo.rpggame.gfx.Assets;
+import dev.majimo.rpggame.tiles.StoneTile;
+import dev.majimo.rpggame.tiles.Tile;
 import dev.majimo.rpggame.worlds.World;
 
 public class GameState extends State {
@@ -14,7 +17,7 @@ public class GameState extends State {
 	public GameState(Game game) {
 		super(game);
 		player = new Player(game, 100, 100);
-		world = new World("res/worlds/world1.txt");
+		world = new World(game, "res/worlds/world1.txt");
 	}
 	
 	@Override

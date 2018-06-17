@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import dev.majimo.rpggame.display.Display;
 import dev.majimo.rpggame.gfx.Assets;
+import dev.majimo.rpggame.gfx.GameCamera;
 import dev.majimo.rpggame.input.KeyManager;
 import dev.majimo.rpggame.states.GameState;
 import dev.majimo.rpggame.states.MenuState;
@@ -20,16 +21,32 @@ public class Game implements Runnable {
 	
 	// States
 	private State gameState;
-	private State menuState;
+	private State menuState;	//TODO
 	
+	// Inputs
 	private KeyManager keyManager;
+	
+	// Camera
+	private GameCamera gameCamera;
 	
 	private boolean running = false;
 	public String title;
-	public int width, height;
+	private int width, height;
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
 	
 	public KeyManager getKeyManager() {
 		return keyManager;
+	}
+	
+	public GameCamera getGameCamera() {
+		return gameCamera;
 	}
 	
 	public Game(String title, int width, int height) {
@@ -79,6 +96,8 @@ public class Game implements Runnable {
 		display = new Display(title, width, height);
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
+		
+		gameCamera = new GameCamera(this, 0, 0);
 		
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
