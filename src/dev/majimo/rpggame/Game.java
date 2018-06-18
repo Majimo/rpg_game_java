@@ -19,6 +19,10 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	
+	private boolean running = false;
+	public String title;
+	private int width, height;
+	
 	// States
 	private State gameState;
 	private State menuState;	//TODO
@@ -29,9 +33,8 @@ public class Game implements Runnable {
 	// Camera
 	private GameCamera gameCamera;
 	
-	private boolean running = false;
-	public String title;
-	private int width, height;
+	// Handler
+	private Handler handler;
 	
 	public int getWidth() {
 		return width;
@@ -98,9 +101,10 @@ public class Game implements Runnable {
 		Assets.init();
 		
 		gameCamera = new GameCamera(this, 0, 0);
+		handler = new Handler(this);
 		
-		gameState = new GameState(this);
-		menuState = new MenuState(this);
+		gameState = new GameState(handler);
+		menuState = new MenuState(handler);
 		State.setState(gameState);
 	}
 	
